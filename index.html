@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mony - Voice Player for Krishiv</title>
+    <title>Mony - Voice Player & Kids AI Assistant</title>
     <style>
         :root {
           --bg-color: #0f172a;
           --card-bg: #1e293b;
           --accent: #6366f1;
           --accent-hover: #4f46e5;
+          --kids-accent: #f59e0b;
           --text-main: #f8fafc;
           --text-muted: #94a3b8;
           --active-green: #22c55e;
@@ -34,23 +35,22 @@
 
         header {
           text-align: center;
-          margin-bottom: 15px;
+          margin-bottom: 12px;
           width: 100%;
         }
 
         header h1 {
-          font-size: clamp(1.5rem, 5vw, 2.2rem);
+          font-size: clamp(1.4rem, 5vw, 2.2rem);
           color: var(--accent);
           margin-bottom: 4px;
         }
 
         header p {
           color: var(--text-muted);
-          font-size: clamp(0.8rem, 3vw, 0.95rem);
+          font-size: clamp(0.75rem, 3vw, 0.9rem);
           padding: 0 10px;
         }
 
-        /* Fully Responsive Grid Layout */
         .container {
           width: 100%;
           max-width: 1000px;
@@ -74,18 +74,17 @@
           width: 100%;
         }
 
-        /* Voice Status Box */
         .voice-status-box {
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
-          gap: 12px;
+          gap: 10px;
         }
 
         .mic-btn {
-          width: clamp(60px, 18vw, 75px);
-          height: clamp(60px, 18vw, 75px);
+          width: clamp(60px, 16vw, 75px);
+          height: clamp(60px, 16vw, 75px);
           border-radius: 50%;
           border: none;
           background-color: #334155;
@@ -107,14 +106,13 @@
           width: 100%;
           background-color: rgba(0,0,0,0.25);
           border-radius: 8px;
-          padding: 10px;
-          min-height: 50px;
+          padding: 8px;
+          min-height: 45px;
           font-size: 0.85rem;
           color: #cbd5e1;
           word-break: break-word;
         }
 
-        /* Highlighted Response Text Container */
         .command-feedback {
           width: 100%;
           padding: 10px;
@@ -123,10 +121,10 @@
           border-radius: 8px;
           font-weight: 600;
           color: #a5b4fc;
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           word-break: break-word;
           text-align: center;
-          min-height: 42px;
+          min-height: 45px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -142,20 +140,45 @@
         .lang-btn {
           flex: 1;
           max-width: 120px;
-          padding: 8px 12px;
+          padding: 6px 10px;
           border: 1px solid var(--accent);
           background: transparent;
           color: var(--text-main);
           border-radius: 6px;
           cursor: pointer;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
         }
 
         .lang-btn.active {
           background: var(--accent);
         }
 
-        /* Audio Player Controls */
+        .kids-bar {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          width: 100%;
+          margin-top: 5px;
+          justify-content: center;
+        }
+
+        .kids-btn {
+          background-color: rgba(245, 158, 11, 0.2);
+          border: 1px solid var(--kids-accent);
+          color: #fef08a;
+          padding: 6px 10px;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          cursor: pointer;
+          flex: 1 1 30%;
+          text-align: center;
+        }
+
+        .kids-btn:active {
+          background-color: var(--kids-accent);
+          color: black;
+        }
+
         .player-section {
           display: flex;
           flex-direction: column;
@@ -164,18 +187,15 @@
 
         canvas {
           width: 100%;
-          height: 100px;
+          height: 90px;
           background-color: #090d16;
           border-radius: 8px;
         }
 
-        .track-info {
-          text-align: center;
-        }
-
         .track-title {
           font-weight: bold;
-          font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+          font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+          text-align: center;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -192,29 +212,25 @@
           background-color: #334155;
           border: none;
           color: white;
-          padding: 12px 20px;
+          padding: 10px 18px;
           border-radius: 8px;
           cursor: pointer;
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           touch-action: manipulation;
-        }
-
-        .btn-ctrl:active {
-          background-color: var(--accent);
         }
 
         .file-dropzone {
           border: 2px dashed #475569;
           border-radius: 8px;
-          padding: 12px;
+          padding: 10px;
           text-align: center;
           cursor: pointer;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           color: var(--text-muted);
         }
 
         .playlist {
-          max-height: 220px;
+          max-height: 200px;
           overflow-y: auto;
           list-style: none;
           margin-top: 5px;
@@ -223,15 +239,11 @@
         }
 
         .playlist li {
-          padding: 10px 12px;
+          padding: 8px 10px;
           border-bottom: 1px solid #334155;
           cursor: pointer;
           font-size: 0.85rem;
           word-break: break-word;
-        }
-
-        .playlist li:last-child {
-          border-bottom: none;
         }
 
         .playlist li.active {
@@ -239,21 +251,47 @@
           color: #818cf8;
           font-weight: bold;
         }
+
+        .api-key-box {
+          margin-top: 8px;
+          display: flex;
+          gap: 6px;
+          width: 100%;
+        }
+
+        .api-key-box input {
+          flex: 1;
+          background: #0f172a;
+          border: 1px solid #475569;
+          color: white;
+          padding: 6px;
+          border-radius: 4px;
+          font-size: 0.75rem;
+        }
+
+        .api-key-box button {
+          background: var(--accent);
+          border: none;
+          color: white;
+          padding: 6px 10px;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Mony Voice Player</h1>
-    <p>Prefix commands with <strong>"Mony"</strong> (e.g. <em>"Good morning Mony"</em> or <em>"Mony Kesariya gao"</em>)</p>
+    <h1>Mony Voice Player & AI</h1>
+    <p>Prefix commands with <strong>"Mony"</strong> (e.g. <em>"Mony teach ABCD"</em> or <em>"Mony what is my location"</em>)</p>
 </header>
 
 <div class="container">
-    <!-- Voice Controls Panel -->
     <div class="card voice-status-box">
         <h3>Voice Assistant</h3>
         <button id="micBtn" class="mic-btn">🎤</button>
-        <div id="statusText" style="font-size: 0.85rem; color: var(--text-muted);">Microphone: Off</div>
+        <div id="statusText" style="font-size: 0.8rem; color: var(--text-muted);">Microphone: Off</div>
 
         <div class="lang-selector">
             <button id="langEn" class="lang-btn active" onclick="setLanguage('en-US')">English</button>
@@ -261,12 +299,26 @@
         </div>
 
         <div class="transcription-box" id="transcription">Click Mic to start listening...</div>
-
-        <!-- Response Display Box -->
         <div class="command-feedback" id="feedback">Waiting for voice command...</div>
+
+        <div style="width: 100%; margin-top: 5px;">
+            <span style="font-size: 0.75rem; color: var(--kids-accent); font-weight: bold;">👶 Quick Actions</span>
+            <div class="kids-bar">
+                <button class="kids-btn" onclick="greetByTime()">👋 Greet Me</button>
+                <button class="kids-btn" onclick="tellLocation()">📍 Location</button>
+                <button class="kids-btn" onclick="tellTime()">⏰ Time</button>
+                <button class="kids-btn" onclick="teachABCD()">🔤 ABCD A-Z</button>
+                <button class="kids-btn" onclick="teachNumbers()">🔢 Numbers 1-10</button>
+                <button class="kids-btn" onclick="tellStory('en')">📖 Story</button>
+            </div>
+        </div>
+
+        <div class="api-key-box">
+            <input type="password" id="geminiApiKey" placeholder="Free Gemini API Key (Optional)">
+            <button onclick="saveApiKey()">Save</button>
+        </div>
     </div>
 
-    <!-- Audio Player Panel -->
     <div class="card player-section">
         <canvas id="visualizer"></canvas>
         <div class="track-info">
@@ -280,7 +332,7 @@
         </div>
 
         <div class="file-dropzone" onclick="document.getElementById('fileInput').click()">
-            📁 Select local audio files
+            📁 Add local audio files
             <input type="file" id="fileInput" multiple accept="audio/*" style="display: none;" onchange="loadFiles(this.files)">
         </div>
 
@@ -290,6 +342,14 @@
 </div>
 
 <script>
+    const SOUND_ALIKE_WAKE_WORDS = [
+      'mony', 'moni', 'money', 'mani', 'manny', 'monie', 'mooney',
+      'moonie', 'muni', 'munni', 'monne', 'mona', 'moani', 'mowney',
+      'mouny', 'mauney', 'mauni', 'moneyy', 'moniy', 'monii', 'monyy',
+      'moli', 'moliya',
+      'मोंनी', 'मोनी', 'मनी', 'मुन्नी', 'मुनी', 'मोनि', 'मॉनी', 'मोणी', 'मौन'
+    ];
+
     let audio = new Audio();
     audio.crossOrigin = "anonymous";
     let playlist = [];
@@ -297,10 +357,51 @@
     let recognition;
     let isListening = false;
     let currentLang = 'en-US';
+    let systemVoices = [];
+    let userApiKey = localStorage.getItem('MONY_GEMINI_KEY') || "";
 
-    let audioCtx, analyser, srcNode;
-    const canvas = document.getElementById('visualizer');
-    const canvasCtx = canvas.getContext('2d');
+    if (userApiKey) {
+      document.getElementById('geminiApiKey').value = userApiKey;
+    }
+
+    function saveApiKey() {
+      userApiKey = document.getElementById('geminiApiKey').value.trim();
+      localStorage.setItem('MONY_GEMINI_KEY', userApiKey);
+      document.getElementById('feedback').textContent = "Gemini API Key Saved!";
+    }
+
+    function populateVoices() {
+      if ('speechSynthesis' in window) {
+        systemVoices = window.speechSynthesis.getVoices();
+      }
+    }
+
+    populateVoices();
+    if ('speechSynthesis' in window && window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    function getFemaleVoice(lang) {
+      if (!systemVoices || systemVoices.length === 0) {
+        systemVoices = window.speechSynthesis.getVoices();
+      }
+
+      const isHindi = lang.startsWith('hi');
+      const langPrefix = isHindi ? 'hi' : 'en';
+      const femaleKeywords = ['female', 'zira', 'samantha', 'victoria', 'karen', 'fiona', 'veena', 'google us english', 'google हिन्दी', 'siri'];
+
+      let matchedVoice = systemVoices.find(voice => {
+        const name = voice.name.toLowerCase();
+        const voiceLang = voice.lang.toLowerCase();
+        return voiceLang.startsWith(langPrefix) && femaleKeywords.some(kw => name.includes(kw));
+      });
+
+      if (!matchedVoice) {
+        matchedVoice = systemVoices.find(voice => voice.lang.toLowerCase().startsWith(langPrefix));
+      }
+
+      return matchedVoice || null;
+    }
 
     function speakResponse(text) {
       if ('speechSynthesis' in window) {
@@ -310,7 +411,13 @@
 
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = currentLang;
-        utterance.rate = 0.95;
+        utterance.rate = 0.92;
+        utterance.pitch = 1.1;
+
+        const femaleVoice = getFemaleVoice(currentLang);
+        if (femaleVoice) {
+          utterance.voice = femaleVoice;
+        }
 
         utterance.onend = () => {
           if (isListening) {
@@ -322,16 +429,174 @@
       }
     }
 
+    // 1. FULL A TO Z PHONICS ALPHABET
+    function teachABCD() {
+      const fullAbcdText = "A for Apple, B for Ball, C for Cat, D for Dog, E for Elephant, F for Fish, G for Grapes, H for Hen, I for Ice cream, J for Joker, K for Kite, L for Lion, M for Monkey, N for Nest, O for Orange, P for Parrot, Q for Queen, R for Rabbit, S for Sun, T for Tiger, U for Umbrella, V for Van, W for Watch, X for Xylophone, Y for Yak, Z for Zebra.";
+      document.getElementById('feedback').textContent = fullAbcdText;
+      speakResponse(fullAbcdText);
+    }
+
+    function teachNumbers() {
+      const numbersText = "One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten";
+      document.getElementById('feedback').textContent = numbersText;
+      speakResponse(numbersText);
+    }
+
+    // 2. LIVE LOCATION DETECTION ENGINE
+    function tellLocation() {
+      const feedbackEl = document.getElementById('feedback');
+      const isHindi = currentLang.startsWith('hi');
+
+      if (!navigator.geolocation) {
+        const errMsg = isHindi ? "आपके ब्राउज़र में लोकेशन की सुविधा उपलब्ध नहीं है" : "Geolocation is not supported by your browser.";
+        feedbackEl.textContent = errMsg;
+        speakResponse(errMsg);
+        return;
+      }
+
+      feedbackEl.textContent = isHindi ? "आपकी लोकेशन खोजी जा रही है..." : "Checking location...";
+
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+          // Free Nominatim OpenStreetMap Reverse Geocoding
+          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
+          if (response.ok) {
+            const data = await response.json();
+            const addr = data.address;
+            const place = addr.village || addr.suburb || addr.town || addr.city || addr.county || addr.state_district || "your current area";
+            const state = addr.state || "";
+
+            let locationReply = isHindi
+              ? `आप अभी ${place} ${state} के पास हैं`
+              : `You are currently near ${place}, ${state}`;
+
+            feedbackEl.textContent = locationReply;
+            speakResponse(locationReply);
+          } else {
+            throw new Error("Geocoding failed");
+          }
+        } catch (err) {
+          let coordsReply = isHindi
+            ? `आपकी लोकेशन अक्षांश ${lat.toFixed(2)} और देशांतर ${lon.toFixed(2)} है`
+            : `Your coordinates are latitude ${lat.toFixed(2)} and longitude ${lon.toFixed(2)}`;
+          feedbackEl.textContent = coordsReply;
+          speakResponse(coordsReply);
+        }
+      }, (error) => {
+        const errReply = isHindi ? "लोकेशन एक्सेस की अनुमति नहीं मिली" : "Unable to access your location. Please enable location permission.";
+        feedbackEl.textContent = errReply;
+        speakResponse(errReply);
+      }, { timeout: 10000 });
+    }
+
+    function greetByTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      const isHindi = currentLang.startsWith('hi');
+      let reply = "";
+
+      if (hours >= 4 && hours < 8) {
+        reply = isHindi ? "वेरी गुड अर्ली मॉर्निंग कृषिव" : "Very good early morning Krishiv";
+      } else if (hours >= 8 && hours < 12) {
+        reply = isHindi ? "वेरी गुड मॉर्निंग कृषिव" : "Very good morning Krishiv";
+      } else if (hours === 12) {
+        reply = isHindi ? "गुड नून कृषिव" : "Good noon Krishiv";
+      } else if (hours >= 13 && hours < 17) {
+        reply = isHindi ? "वेरी गुड आफ्टरनून कृषिव" : "Very good afternoon Krishiv";
+      } else if (hours >= 17 && hours < 21) {
+        reply = isHindi ? "वेरी गुड इवनिंग कृषिव" : "Very good evening Krishiv";
+      } else {
+        reply = isHindi ? "गुड नाईट कृषिव" : "Good night Krishiv";
+      }
+
+      document.getElementById('feedback').textContent = reply;
+      speakResponse(reply);
+    }
+
+    function tellTime() {
+      const now = new Date();
+      let timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      let reply = "";
+      if (currentLang.startsWith('hi')) {
+        reply = `अभी समय ${timeString} हो रहा है`;
+      } else {
+        reply = `The current time is ${timeString}`;
+      }
+
+      document.getElementById('feedback').textContent = reply;
+      speakResponse(reply);
+    }
+
+    function tellDate() {
+      const now = new Date();
+      let dateString = now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+      let reply = "";
+      if (currentLang.startsWith('hi')) {
+        reply = `आज की तारीख है ${dateString}`;
+      } else {
+        reply = `Today is ${dateString}`;
+      }
+
+      document.getElementById('feedback').textContent = reply;
+      speakResponse(reply);
+    }
+
+    let audioCtx, analyser, srcNode;
+    const canvas = document.getElementById('visualizer');
+    const canvasCtx = canvas.getContext('2d');
+
+    async function tellStory(lang = 'en') {
+      const feedbackEl = document.getElementById('feedback');
+      feedbackEl.textContent = "Generating a story...";
+
+      if (userApiKey) {
+        const prompt = lang === 'hi'
+          ? "बच्चों के लिए 3 लाइनों की एक छोटी और मजेदार नैतिक कहानी सुनाओ।"
+          : "Tell a short, 3-line fun moral story for young children.";
+
+        try {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${userApiKey}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+          });
+          const data = await res.json();
+          const story = data.candidates[0].content.parts[0].text;
+          feedbackEl.textContent = story;
+          speakResponse(story);
+          return;
+        } catch (err) {
+          console.warn("Gemini API error, falling back to built-in story.", err);
+        }
+      }
+
+      if (lang === 'hi') {
+        const hiStory = "एक जंगल में एक भूखा कौआ था। उसे एक पानी का घड़ा मिला जिसमें पानी बहुत कम था। उसने घड़े में छोटे-छोटे कंकड़ डाले और पानी ऊपर आ गया। कौए ने पानी पिया और खुश होकर उड़ गया।";
+        feedbackEl.textContent = hiStory;
+        speakResponse(hiStory);
+      } else {
+        const enStory = "Once upon a time, a clever little turtle raced a confident hare. The turtle walked slowly and steadily without stopping, while the hare took a nap. The steady turtle won the race!";
+        feedbackEl.textContent = enStory;
+        speakResponse(enStory);
+      }
+    }
+
     async function loadGitHubSongsFolder() {
       try {
         const response = await fetch('./songs/playlist.json');
         if (response.ok) {
           const songFiles = await response.json();
           songFiles.forEach(filename => {
-            const fullFileName = filename.endsWith('.mp3') ? filename : `${filename}.mp3`;
-            addTrackToPlaylist(filename, `./songs/${encodeURIComponent(fullFileName)}`);
+            const nameStr = typeof filename === 'string' ? filename : filename.name;
+            const fullFileName = nameStr.endsWith('.mp3') ? nameStr : `${nameStr}.mp3`;
+            addTrackToPlaylist(nameStr, `./songs/${encodeURIComponent(fullFileName)}`);
           });
-          document.getElementById('trackTitle').textContent = playlist.length > 0 ? playlist[0].name : "No tracks found";
+          document.getElementById('trackTitle').textContent = playlist.length > 0 ? playlist[0].name : "No tracks loaded";
         } else {
           document.getElementById('trackTitle').textContent = "Select local audio files to play.";
         }
@@ -540,60 +805,70 @@
 
     function processVoiceCommand(rawText) {
       const feedbackEl = document.getElementById('feedback');
-      const text = rawText.toLowerCase();
+      const text = rawText.toLowerCase().trim();
 
-      // 1. GREETINGS & RESPONSES
-      if (text.includes('good morning') || text.includes('subah samay') || text.includes('सुप्रभात')) {
-        const reply = "Very good morning Krishiv";
-        feedbackEl.textContent = reply;
-        speakResponse(reply);
+      const matchedWake = SOUND_ALIKE_WAKE_WORDS.find(w => text.includes(w));
+
+      if (!matchedWake) {
+        feedbackEl.textContent = "Ignored: Prefix command with 'Mony'";
         return;
       }
-      else if (text.includes('good afternoon') || text.includes('दोपहर')) {
-        const reply = "Very good afternoon Krishiv";
-        feedbackEl.textContent = reply;
-        speakResponse(reply);
+
+      let command = text.substring(text.indexOf(matchedWake) + matchedWake.length).trim();
+
+      if (command.length === 0) {
+        feedbackEl.textContent = "Mony is listening! Please state a command.";
+        speakResponse("Yes Krishiv, I am listening.");
         return;
       }
-      else if (text.includes('good evening') || text.includes('shyam') || text.includes('शाम')) {
-        const reply = "Very good evening Krishiv";
-        feedbackEl.textContent = reply;
-        speakResponse(reply);
+
+      // Greetings Engine
+      if (command.includes('good morning') || command.includes('morning') ||
+          command.includes('afternoon') || command.includes('noon') ||
+          command.includes('evening') || command.includes('night') ||
+          command.includes('hello') || command.includes('hi') || command.includes('नमस्ते')) {
+        greetByTime();
         return;
       }
-      else if (text.includes('bye') || text.includes('good bye') || text.includes('bye mony') || text.includes('बाय')) {
+      else if (command.includes('bye') || command.includes('good bye') || command.includes('बाय')) {
         const reply = "Good bye Krishiv";
         feedbackEl.textContent = reply;
         speakResponse(reply);
         return;
       }
 
-      // 2. WAKE WORD CHECK FOR MUSIC COMMANDS
-      const wakeWords = ['mony', 'moni', 'money', 'मोंनी', 'मोनी', 'मूनी'];
-      const matchedWake = wakeWords.find(w => text.includes(w));
-
-      if (!matchedWake) {
-        feedbackEl.textContent = "Ignored: Prefix with 'Mony'";
+      // Location Commands
+      if (command.includes('location') || command.includes('where am i') || command.includes('कहाँ हूँ') || command.includes('स्थान')) {
+        tellLocation();
         return;
       }
 
-      let phrase = text.substring(text.indexOf(matchedWake) + matchedWake.length).trim();
-
-      // Song query extraction
-      let songQuery = "";
-      const gaoRegex = /(.*?)\s*(gao|gow|go|gaoo|sunao|sunaao|play|gaa|गाओ|सुनाओ|चलाओ|बजाओ)$/i;
-      const gaoMatch = phrase.match(gaoRegex);
-
-      if (gaoMatch && gaoMatch[1].trim().length > 0) {
-        songQuery = gaoMatch[1].trim();
-      } else {
-        const playPrefixMatch = phrase.match(/^(play|chalo|bajao|चलाओ|बजाओ)\s+(.+)$/i);
-        if (playPrefixMatch) {
-          songQuery = playPrefixMatch[2].trim();
-        }
+      // Time and Date Matchers
+      if (command.includes('time') || command.includes('samay') || command.includes('समय') || command.includes('kitne baje')) {
+        tellTime();
+        return;
+      }
+      if (command.includes('date') || command.includes('tarikh') || command.includes('तारीख')) {
+        tellDate();
+        return;
       }
 
-      songQuery = songQuery.replace(/^(gana|song|a|the|गाना)\s+/i, "").trim();
+      // Kids Commands
+      if (command.includes('abcd') || command.includes('alphabet') || command.includes('वर्णमाला')) {
+        teachABCD();
+        return;
+      }
+      if (command.includes('number') || command.includes('counting') || command.includes('गिनती')) {
+        teachNumbers();
+        return;
+      }
+      if (command.includes('story') || command.includes('kahani') || command.includes('कहानी')) {
+        tellStory((command.includes('hindi') || command.includes('हिंदी')) ? 'hi' : 'en');
+        return;
+      }
+
+      // Song Search Matcher
+      let songQuery = command.replace(/(gao|gow|go|gaoo|sunao|sunaao|play|gaa|गाओ|सुनाओ|चलाओ|बजाओ|gana|song|गाना)$/gi, "").trim();
 
       if (songQuery.length > 0) {
         if (searchAndPlaySong(songQuery)) {
@@ -605,12 +880,12 @@
         }
       }
 
-      // Standard Controls Fallback
-      if (phrase.includes('pause') || phrase.includes('stop') || phrase.includes('roko') || phrase.includes('band')) {
+      // Playback Controls Fallback
+      if (command.includes('pause') || command.includes('stop') || command.includes('roko') || command.includes('band')) {
         audio.pause();
         document.getElementById('playPauseBtn').textContent = '▶️';
         feedbackEl.textContent = "Action: Paused";
-      } else if (phrase.includes('play') || phrase.includes('start') || phrase.includes('chalo')) {
+      } else if (command.includes('play') || command.includes('start') || command.includes('chalo')) {
         if (audio.paused && audio.src) {
           audio.play();
           document.getElementById('playPauseBtn').textContent = '⏸️';
@@ -618,10 +893,10 @@
         } else if (playlist.length > 0) {
           playTrack(0, true);
         }
-      } else if (phrase.includes('next') || phrase.includes('agla')) {
+      } else if (command.includes('next') || command.includes('agla')) {
         nextTrack();
         feedbackEl.textContent = "Action: Next track";
-      } else if (phrase.includes('previous') || phrase.includes('pichhla')) {
+      } else if (command.includes('previous') || command.includes('pichhla')) {
         prevTrack();
         feedbackEl.textContent = "Action: Previous track";
       }
