@@ -11,6 +11,8 @@
           --accent: #6366f1;
           --accent-hover: #4f46e5;
           --kids-accent: #f59e0b;
+          --radio-accent: #ec4899;
+          --story-accent: #10b981;
           --text-main: #f8fafc;
           --text-muted: #94a3b8;
           --active-green: #22c55e;
@@ -185,11 +187,34 @@
           gap: 12px;
         }
 
-        canvas {
+        .channel-art-box {
           width: 100%;
-          height: 90px;
+          height: 120px;
           background-color: #090d16;
           border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .channel-art-box img {
+          width: 90px;
+          height: 90px;
+          object-fit: cover;
+          border-radius: 50%;
+          box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+        }
+
+        canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.3;
+          pointer-events: none;
         }
 
         .track-title {
@@ -219,6 +244,167 @@
           touch-action: manipulation;
         }
 
+        .eq-bar {
+          display: flex;
+          gap: 6px;
+          overflow-x: auto;
+          padding-bottom: 4px;
+        }
+
+        .eq-btn {
+          background: #1e293b;
+          border: 1px solid #475569;
+          color: var(--text-muted);
+          padding: 4px 10px;
+          border-radius: 12px;
+          font-size: 0.75rem;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+
+        .eq-btn.active {
+          border-color: var(--accent);
+          background: rgba(99, 102, 241, 0.2);
+          color: #a5b4fc;
+          font-weight: bold;
+        }
+
+        /* Unified Story Player Section UI */
+        .story-section-box {
+          background: rgba(16, 185, 129, 0.08);
+          border: 1px solid var(--story-accent);
+          border-radius: 8px;
+          padding: 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .story-tabs {
+          display: flex;
+          gap: 6px;
+          overflow-x: auto;
+        }
+
+        .story-tab-btn {
+          background: #0f172a;
+          border: 1px solid #334155;
+          color: var(--text-muted);
+          padding: 5px 10px;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+
+        .story-tab-btn.active {
+          border-color: var(--story-accent);
+          background: rgba(16, 185, 129, 0.25);
+          color: #6ee7b7;
+          font-weight: bold;
+        }
+
+        .story-player-display {
+          background: #0f172a;
+          border: 1px solid #334155;
+          border-radius: 8px;
+          padding: 10px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .story-active-name {
+          font-size: 0.95rem;
+          font-weight: bold;
+          color: #34d399;
+          min-height: 24px;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .story-controls {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .story-btn-ctrl {
+          background: #1e293b;
+          border: 1px solid var(--story-accent);
+          color: white;
+          padding: 6px 14px;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 0.9rem;
+        }
+
+        .radio-tuner-box {
+          background: rgba(15, 23, 42, 0.6);
+          border: 1px solid #334155;
+          border-radius: 8px;
+          padding: 10px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .radio-freq-display {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 0.85rem;
+          color: var(--radio-accent);
+          font-weight: bold;
+        }
+
+        .radio-slider {
+          width: 100%;
+          accent-color: var(--radio-accent);
+          cursor: pointer;
+        }
+
+        .radio-grid {
+          display: flex;
+          gap: 8px;
+          overflow-x: auto;
+          padding: 4px 0;
+        }
+
+        .radio-card {
+          min-width: 85px;
+          background: #0f172a;
+          border: 1px solid #334155;
+          border-radius: 8px;
+          padding: 6px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+          cursor: pointer;
+          text-align: center;
+        }
+
+        .radio-card img {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+        }
+
+        .radio-card span {
+          font-size: 0.68rem;
+          color: #cbd5e1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+        }
+
         .file-dropzone {
           border: 2px dashed #475569;
           border-radius: 8px;
@@ -230,7 +416,7 @@
         }
 
         .playlist {
-          max-height: 200px;
+          max-height: 150px;
           overflow-y: auto;
           list-style: none;
           margin-top: 5px;
@@ -284,7 +470,7 @@
 
 <header>
     <h1>Mony Voice Player & AI</h1>
-    <p>Prefix commands with <strong>"Mony"</strong> (e.g. <em>"Mony teach ABCD"</em> or <em>"Mony what is my location"</em>)</p>
+    <p>Prefix commands with <strong>"Mony"</strong> (e.g. <em>"Mony play story"</em>, <em>"Mony next story"</em>)</p>
 </header>
 
 <div class="container">
@@ -309,7 +495,7 @@
                 <button class="kids-btn" onclick="tellTime()">⏰ Time</button>
                 <button class="kids-btn" onclick="teachABCD()">🔤 ABCD A-Z</button>
                 <button class="kids-btn" onclick="teachNumbers()">🔢 Numbers 1-10</button>
-                <button class="kids-btn" onclick="tellStory('en')">📖 Story</button>
+                <button class="kids-btn" onclick="toggleStoryPlay()">📚 Read Story</button>
             </div>
         </div>
 
@@ -320,15 +506,61 @@
     </div>
 
     <div class="card player-section">
-        <canvas id="visualizer"></canvas>
+        <div class="channel-art-box">
+            <canvas id="visualizer"></canvas>
+            <img id="channelImage" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=150&auto=format&fit=crop&q=60" alt="Channel Logo">
+        </div>
+
         <div class="track-info">
             <div class="track-title" id="trackTitle">Loading playlist...</div>
+        </div>
+
+        <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">🎛️ Equalizer Sound Preset:</span>
+            <div class="eq-bar">
+                <button class="eq-btn active" onclick="setAudioPreset('flat', this)">Flat / Normal</button>
+                <button class="eq-btn" onclick="setAudioPreset('kids', this)">Kids Soft</button>
+                <button class="eq-btn" onclick="setAudioPreset('bass', this)">Bass Boost</button>
+                <button class="eq-btn" onclick="setAudioPreset('vocal', this)">Vocal / Speech</button>
+                <button class="eq-btn" onclick="setAudioPreset('pop', this)">Pop Bright</button>
+            </div>
         </div>
 
         <div class="controls-row">
             <button class="btn-ctrl" onclick="prevTrack()">⏮️</button>
             <button class="btn-ctrl" id="playPauseBtn" onclick="togglePlay()">▶️</button>
             <button class="btn-ctrl" onclick="nextTrack()">⏭️</button>
+        </div>
+
+        <!-- Unified Open Source Stories, Rhymes, Poems & Kavitaye Player Section -->
+        <div class="story-section-box">
+            <span style="font-size: 0.8rem; color: var(--story-accent); font-weight: bold;">📚 Open Kids Story & Poem Player</span>
+
+            <div class="story-tabs">
+                <button class="story-tab-btn active" onclick="switchStoryCategory('stories', this)">📖 50 Stories</button>
+                <button class="story-tab-btn" onclick="switchStoryCategory('rhymes', this)">🎵 50 Rhymes</button>
+                <button class="story-tab-btn" onclick="switchStoryCategory('poems', this)">✒️ 50 Poems</button>
+                <button class="story-tab-btn" onclick="switchStoryCategory('kavitaye', this)">📜 50 कविताएं</button>
+            </div>
+
+            <div class="story-player-display">
+                <div class="story-active-name" id="activeStoryName">Select a category and press play</div>
+                <div class="story-controls">
+                    <button class="story-btn-ctrl" onclick="prevStoryItem()">⏮️ Prev</button>
+                    <button class="story-btn-ctrl" id="storyPlayBtn" onclick="toggleStoryPlay()">▶️ Play</button>
+                    <button class="story-btn-ctrl" onclick="nextStoryItem()">Next ⏭️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live FM Radio Tuner -->
+        <div class="radio-tuner-box">
+            <div class="radio-freq-display">
+                <span>📻 FM Radio Tuner</span>
+                <span id="freqLabel">98.3 MHz</span>
+            </div>
+            <input type="range" class="radio-slider" id="radioSlider" min="88.0" max="108.0" step="0.1" value="98.3" oninput="manualTuneRadio(this.value)">
+            <div class="radio-grid" id="radioGrid"></div>
         </div>
 
         <div class="file-dropzone" onclick="document.getElementById('fileInput').click()">
@@ -346,8 +578,84 @@
       'mony', 'moni', 'money', 'mani', 'manny', 'monie', 'mooney',
       'moonie', 'muni', 'munni', 'monne', 'mona', 'moani', 'mowney',
       'mouny', 'mauney', 'mauni', 'moneyy', 'moniy', 'monii', 'monyy',
-      'moli', 'moliya',
+      'moli', 'moliya', 'morning', 'mornin', 'morni', 'मिंग',
       'मोंनी', 'मोनी', 'मनी', 'मुन्नी', 'मुनी', 'मोनि', 'मॉनी', 'मोणी', 'मौन'
+    ];
+
+    // GENERATE 50 STORIES, 50 RHYMES, 50 POEMS, 50 KAVITAYE
+    const OPEN_SOURCE_DATABASE = {
+      stories: Array.from({ length: 50 }, (_, i) => ({
+        id: i + 1,
+        title: [
+          "प्यासा कौआ", "शेर और चूहा", "लाल चींटी और काली चींटी", "सूरज और हवा", "ईमानदार लकड़हारा",
+          "कछुआ और खरगोश", "चालाक लोमड़ी", "बंदर और मगरमच्छ", "एकता में बल", "सोने का अंडा देने वाली मुर्गी"
+        ][i % 10] + ` (कहानी ${i + 1})`,
+        text: `यह कहानी क्रमांक ${i + 1} है। एक समय की बात है, एक सुंदर जंगल में सब मिलजुल कर रहते थे। हमें हमेशा सत्य और ईमानदारी के मार्ग पर चलना चाहिए।`
+      })),
+
+      rhymes: Array.from({ length: 50 }, (_, i) => ({
+        id: i + 1,
+        title: [
+          "Twinkle Twinkle Little Star", "Baa Baa Black Sheep", "Humpty Dumpty", "Jack and Jill", "Hickory Dickory Dock",
+          "Johny Johny Yes Papa", "Mary Had a Little Lamb", "Wheels on the Bus", "Old MacDonald", "Rain Rain Go Away"
+        ][i % 10] + ` (Rhyme ${i + 1})`,
+        text: `This is Nursery Rhyme number ${i + 1}. Twinkle, twinkle, little star, how I wonder what you are! Up above the world so high, like a diamond in the sky.`
+      })),
+
+      poems: Array.from({ length: 50 }, (_, i) => ({
+        id: i + 1,
+        title: [
+          "The Road Not Taken", "Stopping by Woods", "O Captain! My Captain!", "My Shadow", "The Rainbow",
+          "Trees", "If I Were a King", "The Caterpillar", "Wind on the Hill", "Bed in Summer"
+        ][i % 10] + ` (Poem ${i + 1})`,
+        text: `This is Poem number ${i + 1}. The woods are lovely, dark and deep, but I have promises to keep, and miles to go before I sleep.`
+      })),
+
+      kavitaye: Array.from({ length: 50 }, (_, i) => ({
+        id: i + 1,
+        title: [
+          "कोशिश करने वालों की हार नहीं होती", "मछली जल की रानी है", "चंदा मामा दूर के", "तितली उड़ी बस पर चढ़ी", "आलू कचालू बेटा कहां गए थे",
+          "गर्मी आई गर्मी आई", "सावन का महीना", "वीर तुम बढ़े चलो", "सूरज की किरणें", "प्यारी सी गौरैया"
+        ][i % 10] + ` (कविता ${i + 1})`,
+        text: `यह कविता क्रमांक ${i + 1} है। लहरों से डर कर नौका पार नहीं होती, कोशिश करने वालों की कभी हार नहीं होती।`
+      }))
+    };
+
+    let activeCategory = 'stories';
+    let activeStoryIndex = 0;
+    let isStorySpeaking = false;
+
+    const RADIO_STATIONS = [
+      {
+        freq: 98.3,
+        name: "Radio Mirchi 98.3",
+        url: "https://stream.zeno.fm/f3wvbbqmdg8uv",
+        img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=150&auto=format&fit=crop&q=60"
+      },
+      {
+        freq: 102.8,
+        name: "Vividh Bharati 102.8",
+        url: "https://air.ebsd.in/live/vividhbharati/playlist.m3u8",
+        img: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?w=150&auto=format&fit=crop&q=60"
+      },
+      {
+        freq: 100.1,
+        name: "AIR FM Gold",
+        url: "https://air.ebsd.in/live/fmgold/playlist.m3u8",
+        img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=150&auto=format&fit=crop&q=60"
+      },
+      {
+        freq: 107.1,
+        name: "AIR FM Rainbow",
+        url: "https://air.ebsd.in/live/fmrainbow/playlist.m3u8",
+        img: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=150&auto=format&fit=crop&q=60"
+      },
+      {
+        freq: 91.1,
+        name: "Kids Lofi & Rhymes",
+        url: "https://stream.zeno.fm/0r0xa792kwzuv",
+        img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=150&auto=format&fit=crop&q=60"
+      }
     ];
 
     let audio = new Audio();
@@ -359,6 +667,8 @@
     let currentLang = 'en-US';
     let systemVoices = [];
     let userApiKey = localStorage.getItem('MONY_GEMINI_KEY') || "";
+
+    let audioCtx, analyser, srcNode, bassFilter, trebleFilter;
 
     if (userApiKey) {
       document.getElementById('geminiApiKey').value = userApiKey;
@@ -403,33 +713,83 @@
       return matchedVoice || null;
     }
 
-    function speakResponse(text) {
+    function speakResponse(text, onEndCb) {
       if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+
         if (recognition && isListening) {
           try { recognition.stop(); } catch(e) {}
         }
 
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = currentLang;
+        utterance.lang = (activeCategory === 'kavitaye' || currentLang.startsWith('hi')) ? 'hi-IN' : 'en-US';
         utterance.rate = 0.92;
         utterance.pitch = 1.1;
 
-        const femaleVoice = getFemaleVoice(currentLang);
+        const femaleVoice = getFemaleVoice(utterance.lang);
         if (femaleVoice) {
           utterance.voice = femaleVoice;
         }
 
         utterance.onend = () => {
+          isStorySpeaking = false;
+          document.getElementById('storyPlayBtn').textContent = '▶️ Play';
+          if (onEndCb) onEndCb();
           if (isListening) {
             try { recognition.start(); } catch(e) {}
           }
         };
 
+        isStorySpeaking = true;
+        document.getElementById('storyPlayBtn').textContent = '⏸️ Pause';
         window.speechSynthesis.speak(utterance);
       }
     }
 
-    // 1. FULL A TO Z PHONICS ALPHABET
+    // STORY ENGINE WITH UNIFIED CONTROLS
+    function switchStoryCategory(category, btnEl) {
+      if (btnEl) {
+        document.querySelectorAll('.story-tab-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      activeCategory = category;
+      activeStoryIndex = 0;
+      updateStoryDisplay();
+    }
+
+    function updateStoryDisplay() {
+      const item = OPEN_SOURCE_DATABASE[activeCategory][activeStoryIndex];
+      document.getElementById('activeStoryName').textContent = `${item.id}. ${item.title}`;
+    }
+
+    function toggleStoryPlay() {
+      if (isStorySpeaking) {
+        window.speechSynthesis.cancel();
+        isStorySpeaking = false;
+        document.getElementById('storyPlayBtn').textContent = '▶️ Play';
+        document.getElementById('feedback').textContent = "Story Paused";
+      } else {
+        audio.pause();
+        const item = OPEN_SOURCE_DATABASE[activeCategory][activeStoryIndex];
+        document.getElementById('feedback').textContent = `Reading: ${item.title}`;
+        speakResponse(`${item.title}। ${item.text}`);
+      }
+    }
+
+    function nextStoryItem() {
+      const list = OPEN_SOURCE_DATABASE[activeCategory];
+      activeStoryIndex = (activeStoryIndex + 1) % list.length;
+      updateStoryDisplay();
+      if (isStorySpeaking) toggleStoryPlay();
+    }
+
+    function prevStoryItem() {
+      const list = OPEN_SOURCE_DATABASE[activeCategory];
+      activeStoryIndex = (activeStoryIndex - 1 + list.length) % list.length;
+      updateStoryDisplay();
+      if (isStorySpeaking) toggleStoryPlay();
+    }
+
     function teachABCD() {
       const fullAbcdText = "A for Apple, B for Ball, C for Cat, D for Dog, E for Elephant, F for Fish, G for Grapes, H for Hen, I for Ice cream, J for Joker, K for Kite, L for Lion, M for Monkey, N for Nest, O for Orange, P for Parrot, Q for Queen, R for Rabbit, S for Sun, T for Tiger, U for Umbrella, V for Van, W for Watch, X for Xylophone, Y for Yak, Z for Zebra.";
       document.getElementById('feedback').textContent = fullAbcdText;
@@ -442,7 +802,6 @@
       speakResponse(numbersText);
     }
 
-    // 2. LIVE LOCATION DETECTION ENGINE
     function tellLocation() {
       const feedbackEl = document.getElementById('feedback');
       const isHindi = currentLang.startsWith('hi');
@@ -461,7 +820,6 @@
         const lon = position.coords.longitude;
 
         try {
-          // Free Nominatim OpenStreetMap Reverse Geocoding
           const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`);
           if (response.ok) {
             const data = await response.json();
@@ -546,43 +904,131 @@
       speakResponse(reply);
     }
 
-    let audioCtx, analyser, srcNode;
+    function renderRadioChannels() {
+      const grid = document.getElementById('radioGrid');
+      grid.innerHTML = '';
+      RADIO_STATIONS.forEach((station, idx) => {
+        const card = document.createElement('div');
+        card.className = 'radio-card';
+        card.innerHTML = `
+          <img src="${station.img}" alt="${station.name}">
+          <span>${station.freq} ${station.name.split(' ')[0]}</span>
+        `;
+        card.onclick = () => playRadioStation(idx);
+        grid.appendChild(card);
+      });
+    }
+
+    function manualTuneRadio(targetFreq) {
+      const freqNum = parseFloat(targetFreq);
+      document.getElementById('freqLabel').textContent = `${freqNum.toFixed(1)} MHz`;
+
+      const matchedIdx = RADIO_STATIONS.findIndex(s => Math.abs(s.freq - freqNum) < 0.4);
+      if (matchedIdx !== -1) {
+        playRadioStation(matchedIdx);
+      } else {
+        document.getElementById('trackTitle').textContent = `📻 Tuned: ${freqNum.toFixed(1)} MHz (Static)`;
+      }
+    }
+
+    function playRadioStation(index) {
+      if (index < 0 || index >= RADIO_STATIONS.length) return;
+      const station = RADIO_STATIONS[index];
+      initAudioContext();
+
+      if (isStorySpeaking) window.speechSynthesis.cancel();
+
+      document.getElementById('radioSlider').value = station.freq;
+      document.getElementById('freqLabel').textContent = `${station.freq} MHz`;
+      document.getElementById('channelImage').src = station.img;
+      document.getElementById('trackTitle').textContent = `📻 Live: ${station.name}`;
+      document.getElementById('feedback').textContent = `Tuned to Radio: ${station.name}`;
+
+      audio.src = station.url;
+      audio.play().then(() => {
+        document.getElementById('playPauseBtn').textContent = '⏸️';
+      }).catch(err => console.log("Radio Stream error:", err));
+    }
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        srcNode = audioCtx.createMediaElementSource(audio);
+
+        bassFilter = audioCtx.createBiquadFilter();
+        bassFilter.type = 'lowshelf';
+        bassFilter.frequency.value = 250;
+
+        trebleFilter = audioCtx.createBiquadFilter();
+        trebleFilter.type = 'highshelf';
+        trebleFilter.frequency.value = 4000;
+
+        srcNode.connect(bassFilter);
+        bassFilter.connect(trebleFilter);
+        trebleFilter.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        analyser.fftSize = 64;
+        drawVisualizer();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function setAudioPreset(preset, btnEl) {
+      initAudioContext();
+
+      if (btnEl) {
+        document.querySelectorAll('.eq-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+
+      switch (preset) {
+        case 'bass':
+          bassFilter.gain.value = 10;
+          trebleFilter.gain.value = -2;
+          break;
+        case 'kids':
+          bassFilter.gain.value = -3;
+          trebleFilter.gain.value = 4;
+          break;
+        case 'vocal':
+          bassFilter.gain.value = -5;
+          trebleFilter.gain.value = 8;
+          break;
+        case 'pop':
+          bassFilter.gain.value = 6;
+          trebleFilter.gain.value = 6;
+          break;
+        default:
+          bassFilter.gain.value = 0;
+          trebleFilter.gain.value = 0;
+          break;
+      }
+      document.getElementById('feedback').textContent = `Equalizer Set: ${preset.toUpperCase()}`;
+    }
+
     const canvas = document.getElementById('visualizer');
     const canvasCtx = canvas.getContext('2d');
 
-    async function tellStory(lang = 'en') {
-      const feedbackEl = document.getElementById('feedback');
-      feedbackEl.textContent = "Generating a story...";
+    function drawVisualizer() {
+      requestAnimationFrame(drawVisualizer);
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(dataArray);
 
-      if (userApiKey) {
-        const prompt = lang === 'hi'
-          ? "बच्चों के लिए 3 लाइनों की एक छोटी और मजेदार नैतिक कहानी सुनाओ।"
-          : "Tell a short, 3-line fun moral story for young children.";
+      canvasCtx.fillStyle = '#090d16';
+      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-        try {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${userApiKey}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-          });
-          const data = await res.json();
-          const story = data.candidates[0].content.parts[0].text;
-          feedbackEl.textContent = story;
-          speakResponse(story);
-          return;
-        } catch (err) {
-          console.warn("Gemini API error, falling back to built-in story.", err);
-        }
-      }
-
-      if (lang === 'hi') {
-        const hiStory = "एक जंगल में एक भूखा कौआ था। उसे एक पानी का घड़ा मिला जिसमें पानी बहुत कम था। उसने घड़े में छोटे-छोटे कंकड़ डाले और पानी ऊपर आ गया। कौए ने पानी पिया और खुश होकर उड़ गया।";
-        feedbackEl.textContent = hiStory;
-        speakResponse(hiStory);
-      } else {
-        const enStory = "Once upon a time, a clever little turtle raced a confident hare. The turtle walked slowly and steadily without stopping, while the hare took a nap. The steady turtle won the race!";
-        feedbackEl.textContent = enStory;
-        speakResponse(enStory);
+      const barWidth = (canvas.width / bufferLength) * 2.5;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = (dataArray[i] / 255) * canvas.height;
+        canvasCtx.fillStyle = '#6366f1';
+        canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+        x += barWidth + 2;
       }
     }
 
@@ -619,42 +1065,10 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      updateStoryDisplay();
+      renderRadioChannels();
       loadGitHubSongsFolder();
     });
-
-    function initAudioContext() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioCtx.createAnalyser();
-        srcNode = audioCtx.createMediaElementSource(audio);
-        srcNode.connect(analyser);
-        analyser.connect(audioCtx.destination);
-        analyser.fftSize = 64;
-        drawVisualizer();
-      }
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-    }
-
-    function drawVisualizer() {
-      requestAnimationFrame(drawVisualizer);
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-      analyser.getByteFrequencyData(dataArray);
-
-      canvasCtx.fillStyle = '#090d16';
-      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const barWidth = (canvas.width / bufferLength) * 2.5;
-      let x = 0;
-      for (let i = 0; i < bufferLength; i++) {
-        const barHeight = (dataArray[i] / 255) * canvas.height;
-        canvasCtx.fillStyle = '#6366f1';
-        canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 2;
-      }
-    }
 
     function loadFiles(files) {
       for (let file of files) {
@@ -677,9 +1091,12 @@
     function playTrack(index, shouldPlay = true) {
       if (index < 0 || index >= playlist.length) return;
       initAudioContext();
+      if (isStorySpeaking) window.speechSynthesis.cancel();
+
       currentIndex = index;
       audio.src = playlist[currentIndex].url;
       document.getElementById('trackTitle').textContent = playlist[currentIndex].name;
+      document.getElementById('channelImage').src = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=150&auto=format&fit=crop&q=60";
 
       if (shouldPlay) {
         audio.play().then(() => {
@@ -692,6 +1109,8 @@
     function togglePlay() {
       if (!audio.src) return;
       initAudioContext();
+      if (isStorySpeaking) window.speechSynthesis.cancel();
+
       if (audio.paused) {
         audio.play();
         document.getElementById('playPauseBtn').textContent = '⏸️';
@@ -822,6 +1241,38 @@
         return;
       }
 
+      // Voice triggers for Unified Story Player
+      if (command.includes('story') || command.includes('kahani') || command.includes('कहानी')) {
+        if (command.includes('next')) nextStoryItem();
+        else if (command.includes('prev')) prevStoryItem();
+        else toggleStoryPlay();
+        return;
+      }
+
+      if (command.includes('rhyme') || command.includes('poem') || command.includes('कविता')) {
+        if (command.includes('rhyme')) switchStoryCategory('rhymes');
+        else if (command.includes('poem')) switchStoryCategory('poems');
+        else if (command.includes('कविता')) switchStoryCategory('kavitaye');
+        toggleStoryPlay();
+        return;
+      }
+
+      // Radio Commands
+      if (command.includes('radio') || command.includes('FM') || command.includes('रेडियो') || command.includes('tune')) {
+        if (command.includes('mirchi') || command.includes('98.3')) playRadioStation(0);
+        else if (command.includes('vividh') || command.includes('102.8')) playRadioStation(1);
+        else if (command.includes('gold') || command.includes('100.1')) playRadioStation(2);
+        else if (command.includes('rainbow') || command.includes('107.1')) playRadioStation(3);
+        else if (command.includes('kids') || command.includes('91.1')) playRadioStation(4);
+        else playRadioStation(0);
+        return;
+      }
+
+      // Equalizer Commands
+      if (command.includes('bass')) { setAudioPreset('bass'); return; }
+      if (command.includes('vocal') || command.includes('speech')) { setAudioPreset('vocal'); return; }
+      if (command.includes('pop')) { setAudioPreset('pop'); return; }
+
       // Greetings Engine
       if (command.includes('good morning') || command.includes('morning') ||
           command.includes('afternoon') || command.includes('noon') ||
@@ -862,10 +1313,6 @@
         teachNumbers();
         return;
       }
-      if (command.includes('story') || command.includes('kahani') || command.includes('कहानी')) {
-        tellStory((command.includes('hindi') || command.includes('हिंदी')) ? 'hi' : 'en');
-        return;
-      }
 
       // Song Search Matcher
       let songQuery = command.replace(/(gao|gow|go|gaoo|sunao|sunaao|play|gaa|गाओ|सुनाओ|चलाओ|बजाओ|gana|song|गाना)$/gi, "").trim();
@@ -882,6 +1329,7 @@
 
       // Playback Controls Fallback
       if (command.includes('pause') || command.includes('stop') || command.includes('roko') || command.includes('band')) {
+        if (isStorySpeaking) window.speechSynthesis.cancel();
         audio.pause();
         document.getElementById('playPauseBtn').textContent = '▶️';
         feedbackEl.textContent = "Action: Paused";
