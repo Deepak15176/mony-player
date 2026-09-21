@@ -18,6 +18,43 @@
           --active-green: #22c55e;
         }
 
+        /* Color Theme Classes */
+        body.theme-neon {
+          --bg-color: #090514;
+          --card-bg: #160d29;
+          --accent: #00f0ff;
+          --accent-hover: #00b8c4;
+          --kids-accent: #ff007f;
+          --radio-accent: #ff007f;
+          --story-accent: #39ff14;
+          --text-main: #ffffff;
+          --text-muted: #a799cc;
+        }
+
+        body.theme-sunset {
+          --bg-color: #2b1055;
+          --card-bg: #4c1d95;
+          --accent: #f97316;
+          --accent-hover: #ea580c;
+          --kids-accent: #facc15;
+          --radio-accent: #f43f5e;
+          --story-accent: #fbbf24;
+          --text-main: #fff7ed;
+          --text-muted: #ddd6fe;
+        }
+
+        body.theme-forest {
+          --bg-color: #062e1b;
+          --card-bg: #0f4c2e;
+          --accent: #10b981;
+          --accent-hover: #059669;
+          --kids-accent: #f59e0b;
+          --radio-accent: #e11d48;
+          --story-accent: #34d399;
+          --text-main: #ecfdf5;
+          --text-muted: #a7f3d0;
+        }
+
         * {
           box-sizing: border-box;
           margin: 0;
@@ -33,6 +70,7 @@
           flex-direction: column;
           align-items: center;
           padding: 12px;
+          transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         header {
@@ -74,6 +112,27 @@
           padding: 16px;
           box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
           width: 100%;
+          transition: background-color 0.4s ease;
+        }
+
+        .theme-bar {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
+          max-width: 1000px;
+          margin-bottom: 10px;
+        }
+
+        .theme-select {
+          background: var(--card-bg);
+          color: var(--text-main);
+          border: 1px solid var(--accent);
+          border-radius: 6px;
+          padding: 4px 8px;
+          font-size: 0.8rem;
+          cursor: pointer;
         }
 
         .voice-status-box {
@@ -111,7 +170,7 @@
           padding: 8px;
           min-height: 45px;
           font-size: 0.85rem;
-          color: #cbd5e1;
+          color: var(--text-main);
           word-break: break-word;
         }
 
@@ -122,7 +181,7 @@
           border: 1px solid var(--accent);
           border-radius: 8px;
           font-weight: 600;
-          color: #a5b4fc;
+          color: var(--accent);
           font-size: 0.9rem;
           word-break: break-word;
           text-align: center;
@@ -153,6 +212,8 @@
 
         .lang-btn.active {
           background: var(--accent);
+          color: #000;
+          font-weight: bold;
         }
 
         .kids-bar {
@@ -167,18 +228,13 @@
         .kids-btn {
           background-color: rgba(245, 158, 11, 0.2);
           border: 1px solid var(--kids-accent);
-          color: #fef08a;
+          color: var(--kids-accent);
           padding: 6px 10px;
           border-radius: 6px;
           font-size: 0.75rem;
           cursor: pointer;
           flex: 1 1 30%;
           text-align: center;
-        }
-
-        .kids-btn:active {
-          background-color: var(--kids-accent);
-          color: black;
         }
 
         .player-section {
@@ -204,7 +260,7 @@
           height: 90px;
           object-fit: cover;
           border-radius: 50%;
-          box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+          box-shadow: 0 0 15px var(--accent);
         }
 
         canvas {
@@ -224,6 +280,28 @@
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+        }
+
+        .seekbar-container {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          width: 100%;
+        }
+
+        .seekbar-slider {
+          width: 100%;
+          accent-color: var(--accent);
+          cursor: pointer;
+          height: 6px;
+          border-radius: 3px;
+        }
+
+        .seekbar-time {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.75rem;
+          color: var(--text-muted);
         }
 
         .controls-row {
@@ -265,11 +343,10 @@
         .eq-btn.active {
           border-color: var(--accent);
           background: rgba(99, 102, 241, 0.2);
-          color: #a5b4fc;
+          color: var(--accent);
           font-weight: bold;
         }
 
-        /* Unified Story Player Section UI */
         .story-section-box {
           background: rgba(16, 185, 129, 0.08);
           border: 1px solid var(--story-accent);
@@ -300,7 +377,7 @@
         .story-tab-btn.active {
           border-color: var(--story-accent);
           background: rgba(16, 185, 129, 0.25);
-          color: #6ee7b7;
+          color: var(--story-accent);
           font-weight: bold;
         }
 
@@ -319,7 +396,7 @@
         .story-active-name {
           font-size: 0.95rem;
           font-weight: bold;
-          color: #34d399;
+          color: var(--story-accent);
           min-height: 24px;
           width: 100%;
           white-space: nowrap;
@@ -398,7 +475,7 @@
 
         .radio-card span {
           font-size: 0.68rem;
-          color: #cbd5e1;
+          color: var(--text-main);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -434,7 +511,7 @@
 
         .playlist li.active {
           background-color: #334155;
-          color: #818cf8;
+          color: var(--accent);
           font-weight: bold;
         }
 
@@ -464,9 +541,53 @@
           font-size: 0.75rem;
           cursor: pointer;
         }
+
+        /* DRAGGABLE & TALKING CARTOON MASCOT */
+        #cartoonMascot {
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          width: 90px;
+          height: 90px;
+          z-index: 9999;
+          cursor: grab;
+          user-select: none;
+          touch-action: none;
+          filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+
+        #cartoonMascot:active {
+          cursor: grabbing;
+        }
+
+        /* SVG Cartoon Animated States */
+        .mascot-mouth {
+          transform-origin: center;
+          transition: transform 0.15s ease;
+        }
+
+        .talking .mascot-mouth {
+          animation: talkMouth 0.25s infinite alternate ease-in-out;
+        }
+
+        @keyframes talkMouth {
+          0% { transform: scaleY(0.2); }
+          100% { transform: scaleY(1.8); }
+        }
     </style>
 </head>
 <body>
+
+<!-- Theme Switcher Top Bar -->
+<div class="theme-bar">
+    <span>🎨 Theme:</span>
+    <select class="theme-select" id="themeSelector" onchange="changeTheme(this.value)">
+        <option value="default">Dark Slate</option>
+        <option value="theme-neon">Neon Cyber</option>
+        <option value="theme-sunset">Warm Sunset</option>
+        <option value="theme-forest">Forest Green</option>
+    </select>
+</div>
 
 <header>
     <h1>Mony Voice Player & AI</h1>
@@ -515,6 +636,14 @@
             <div class="track-title" id="trackTitle">Loading playlist...</div>
         </div>
 
+        <div class="seekbar-container">
+            <input type="range" class="seekbar-slider" id="audioSeekbar" min="0" max="100" value="0" oninput="seekAudio(this.value)">
+            <div class="seekbar-time">
+                <span id="currentTime">00:00</span>
+                <span id="totalDuration">00:00</span>
+            </div>
+        </div>
+
         <div>
             <span style="font-size: 0.75rem; color: var(--text-muted);">🎛️ Equalizer Sound Preset:</span>
             <div class="eq-bar">
@@ -532,7 +661,6 @@
             <button class="btn-ctrl" onclick="nextTrack()">⏭️</button>
         </div>
 
-        <!-- Unified Open Source Stories, Rhymes, Poems & Kavitaye Player Section -->
         <div class="story-section-box">
             <span style="font-size: 0.8rem; color: var(--story-accent); font-weight: bold;">📚 Open Kids Story & Poem Player</span>
 
@@ -553,7 +681,6 @@
             </div>
         </div>
 
-        <!-- Live FM Radio Tuner -->
         <div class="radio-tuner-box">
             <div class="radio-freq-display">
                 <span>📻 FM Radio Tuner</span>
@@ -573,6 +700,28 @@
     </div>
 </div>
 
+<!-- Draggable & Talking Mascot (Mony Owl) -->
+<div id="cartoonMascot">
+    <svg viewBox="0 0 100 100" width="100%" height="100%" id="mascotSvg">
+        <!-- Owl Body -->
+        <ellipse cx="50" cy="55" rx="35" ry="38" fill="#6366f1" />
+        <ellipse cx="50" cy="60" rx="22" ry="25" fill="#f8fafc" />
+        <!-- Ears / Tufts -->
+        <polygon points="20,25 35,35 25,10" fill="#4f46e5" />
+        <polygon points="80,25 65,35 75,10" fill="#4f46e5" />
+        <!-- Big Eyes -->
+        <circle cx="38" cy="42" r="11" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="62" cy="42" r="11" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+        <circle cx="38" cy="42" r="5" fill="#0f172a" />
+        <circle cx="62" cy="42" r="5" fill="#0f172a" />
+        <!-- Animated Talking Beak / Mouth -->
+        <polygon class="mascot-mouth" points="50,48 43,58 57,58" fill="#f59e0b" />
+        <!-- Feet -->
+        <ellipse cx="40" cy="92" rx="6" ry="3" fill="#f59e0b" />
+        <ellipse cx="60" cy="92" rx="6" ry="3" fill="#f59e0b" />
+    </svg>
+</div>
+
 <script>
     const SOUND_ALIKE_WAKE_WORDS = [
       'mony', 'moni', 'money', 'mani', 'manny', 'monie', 'mooney',
@@ -582,7 +731,6 @@
       'मोंनी', 'मोनी', 'मनी', 'मुन्नी', 'मुनी', 'मोनि', 'मॉनी', 'मोणी', 'मौन'
     ];
 
-    // GENERATE 50 STORIES, 50 RHYMES, 50 POEMS, 50 KAVITAYE
     const OPEN_SOURCE_DATABASE = {
       stories: Array.from({ length: 50 }, (_, i) => ({
         id: i + 1,
@@ -670,6 +818,11 @@
 
     let audioCtx, analyser, srcNode, bassFilter, trebleFilter;
 
+    // THEME SWITCHER
+    function changeTheme(themeClass) {
+      document.body.className = themeClass === 'default' ? '' : themeClass;
+    }
+
     if (userApiKey) {
       document.getElementById('geminiApiKey').value = userApiKey;
     }
@@ -713,6 +866,36 @@
       return matchedVoice || null;
     }
 
+    function formatTime(seconds) {
+      if (isNaN(seconds) || seconds < 0) return "00:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    audio.ontimeupdate = () => {
+      const seekbar = document.getElementById('audioSeekbar');
+      const currentTimeEl = document.getElementById('currentTime');
+      const totalDurationEl = document.getElementById('totalDuration');
+
+      if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        seekbar.value = progress;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+        totalDurationEl.textContent = formatTime(audio.duration);
+      } else {
+        seekbar.value = 0;
+        currentTimeEl.textContent = "00:00";
+        totalDurationEl.textContent = "Live";
+      }
+    };
+
+    function seekAudio(percent) {
+      if (audio.duration) {
+        audio.currentTime = (percent / 100) * audio.duration;
+      }
+    }
+
     function speakResponse(text, onEndCb) {
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -731,7 +914,12 @@
           utterance.voice = femaleVoice;
         }
 
+        utterance.onstart = () => {
+          document.getElementById('mascotSvg').classList.add('talking');
+        };
+
         utterance.onend = () => {
+          document.getElementById('mascotSvg').classList.remove('talking');
           isStorySpeaking = false;
           document.getElementById('storyPlayBtn').textContent = '▶️ Play';
           if (onEndCb) onEndCb();
@@ -746,7 +934,6 @@
       }
     }
 
-    // STORY ENGINE WITH UNIFIED CONTROLS
     function switchStoryCategory(category, btnEl) {
       if (btnEl) {
         document.querySelectorAll('.story-tab-btn').forEach(b => b.classList.remove('active'));
@@ -765,6 +952,7 @@
     function toggleStoryPlay() {
       if (isStorySpeaking) {
         window.speechSynthesis.cancel();
+        document.getElementById('mascotSvg').classList.remove('talking');
         isStorySpeaking = false;
         document.getElementById('storyPlayBtn').textContent = '▶️ Play';
         document.getElementById('feedback').textContent = "Story Paused";
@@ -1068,6 +1256,7 @@
       updateStoryDisplay();
       renderRadioChannels();
       loadGitHubSongsFolder();
+      initDraggableMascot();
     });
 
     function loadFiles(files) {
@@ -1208,7 +1397,6 @@
         recognition.stop();
       } else {
         isListening = true;
-        recognition.lang = currentLang;
         recognition.start();
       }
     });
@@ -1241,7 +1429,6 @@
         return;
       }
 
-      // Voice triggers for Unified Story Player
       if (command.includes('story') || command.includes('kahani') || command.includes('कहानी')) {
         if (command.includes('next')) nextStoryItem();
         else if (command.includes('prev')) prevStoryItem();
@@ -1257,7 +1444,6 @@
         return;
       }
 
-      // Radio Commands
       if (command.includes('radio') || command.includes('FM') || command.includes('रेडियो') || command.includes('tune')) {
         if (command.includes('mirchi') || command.includes('98.3')) playRadioStation(0);
         else if (command.includes('vividh') || command.includes('102.8')) playRadioStation(1);
@@ -1268,12 +1454,10 @@
         return;
       }
 
-      // Equalizer Commands
       if (command.includes('bass')) { setAudioPreset('bass'); return; }
       if (command.includes('vocal') || command.includes('speech')) { setAudioPreset('vocal'); return; }
       if (command.includes('pop')) { setAudioPreset('pop'); return; }
 
-      // Greetings Engine
       if (command.includes('good morning') || command.includes('morning') ||
           command.includes('afternoon') || command.includes('noon') ||
           command.includes('evening') || command.includes('night') ||
@@ -1288,13 +1472,11 @@
         return;
       }
 
-      // Location Commands
       if (command.includes('location') || command.includes('where am i') || command.includes('कहाँ हूँ') || command.includes('स्थान')) {
         tellLocation();
         return;
       }
 
-      // Time and Date Matchers
       if (command.includes('time') || command.includes('samay') || command.includes('समय') || command.includes('kitne baje')) {
         tellTime();
         return;
@@ -1304,7 +1486,6 @@
         return;
       }
 
-      // Kids Commands
       if (command.includes('abcd') || command.includes('alphabet') || command.includes('वर्णमाला')) {
         teachABCD();
         return;
@@ -1314,7 +1495,6 @@
         return;
       }
 
-      // Song Search Matcher
       let songQuery = command.replace(/(gao|gow|go|gaoo|sunao|sunaao|play|gaa|गाओ|सुनाओ|चलाओ|बजाओ|gana|song|गाना)$/gi, "").trim();
 
       if (songQuery.length > 0) {
@@ -1327,7 +1507,6 @@
         }
       }
 
-      // Playback Controls Fallback
       if (command.includes('pause') || command.includes('stop') || command.includes('roko') || command.includes('band')) {
         if (isStorySpeaking) window.speechSynthesis.cancel();
         audio.pause();
@@ -1348,6 +1527,57 @@
         prevTrack();
         feedbackEl.textContent = "Action: Previous track";
       }
+    }
+
+    // DRAGGABLE CARTOON MASCOT ENGINE
+    function initDraggableMascot() {
+      const mascot = document.getElementById('cartoonMascot');
+      let isDragging = false;
+      let currentX, currentY, initialX, initialY;
+      let xOffset = 0, yOffset = 0;
+
+      function dragStart(e) {
+        if (e.type === "touchstart") {
+          initialX = e.touches[0].clientX - xOffset;
+          initialY = e.touches[0].clientY - yOffset;
+        } else {
+          initialX = e.clientX - xOffset;
+          initialY = e.clientY - yOffset;
+        }
+        if (e.target.closest('#cartoonMascot')) {
+          isDragging = true;
+        }
+      }
+
+      function dragEnd() {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+      }
+
+      function drag(e) {
+        if (isDragging) {
+          e.preventDefault();
+          if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+          } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+          }
+          xOffset = currentX;
+          yOffset = currentY;
+          mascot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        }
+      }
+
+      document.addEventListener("touchstart", dragStart, false);
+      document.addEventListener("touchend", dragEnd, false);
+      document.addEventListener("touchmove", drag, false);
+
+      document.addEventListener("mousedown", dragStart, false);
+      document.addEventListener("mouseup", dragEnd, false);
+      document.addEventListener("mousemove", drag, false);
     }
 
     audio.onended = () => nextTrack();
